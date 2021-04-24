@@ -5,11 +5,13 @@ const path = require('path');
 require('dotenv').config();
 const client = mqtt.connect(`mqtt://${process.env.AWS_IP}`);
 
+const dir = 'dummy/send';
+
 client.on('connect', () => {
   console.log('Sender: Connection Success');
 
-  const fileName = 'test.txt';
-  const file = path.join('dummy/send', fileName);
+  const fileName = 'test.jpg';
+  const file = path.join(dir, fileName);
 
   let data;
 
