@@ -1,11 +1,16 @@
-var mqtt = require('mqtt');
-var client = mqtt.connect('mqtt://3.35.83.31');
-var fs = require('fs');
+const mqtt = require('mqtt');
+const fs = require('fs');
+const path = require('path');
+
+require('dotenv').config();
+const client = mqtt.connect(`mqtt://${process.env.AWS_IP}`);
 
 client.on('connect', () => {
   console.log('Sender: Connection Success');
 
-  const file = './dummy/sender.txt';
+  const fileName = 'test.txt';
+  const file = path.join('dummy/send', fileName);
+
   let data;
 
   try {
@@ -17,7 +22,7 @@ client.on('connect', () => {
     return client.end();
   }
 
-  client.publish('IMRaccoon', data, (err) => {
+  client.publish('IMRaccoon', JSON.stringify({ data, fileName }), (err) => {
     if (err) {
       console.error('Sender: Publish Error');
       console.error(err);

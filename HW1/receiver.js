@@ -1,25 +1,35 @@
-var mqtt = require('mqtt');
-var client = mqtt.connect('mqtt://3.35.83.31');
-var fs = require('fs');
+const mqtt = require('mqtt');
+const fs = require('fs');
+const path = require('path');
+
+require('dotenv').config();
+const client = mqtt.connect(`mqtt://${process.env.AWS_IP}`);
+
+const dir = 'dummy/receive';
 
 client.on('connect', () => {
   console.log('Receiver: Connection Success');
   client.subscribe('IMRaccoon', (err) => {
     if (err) {
-      console.error('Receive: Subscribe Failed');
+      console.error('Receiver: Subscribe Failed');
     } else {
-      console.log('Receive: Subscribe Success');
+      console.log('Receiver: Subscribe Success');
     }
   });
 });
 
 client.on('message', (topic, message) => {
   try {
-    fs.writeFileSync('./dummy/receiver.txt', message);
+    const origin = JSON.parse(message);
+    fs.writeFileSync(
+      path.join(dir, origin.fileName),
+      Buffer.from(origin.data.data),
+    );
   } catch (err) {
     console.error('Receiver: File Write Error');
     console.error(err);
   } finally {
+    console.log('Receiver: Receiver: File Write Success');
     client.end();
   }
 });

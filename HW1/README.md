@@ -30,3 +30,16 @@
 5. Open port for MQTT
    - Mosquitto use port number 1884
    - Edit 'Inbound rule'
+
+<br />
+
+### How To Run
+
+1. Clone This Project
+2. Make `.env` file on HW1 folder
+3. Write `AWS_IP=` and Type your EC2 elastic IP
+4. Make `dummy` folder and `sender`, `receiver` folder on it
+5. Add a file to `send` folder, ex) 'test.txt'
+6. Change fileName filed in sender.js
+7. execute `node ./receiver.js`, then `node ./sender.js`
+8. check receiver folder
