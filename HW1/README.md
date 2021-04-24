@@ -27,3 +27,6 @@
      - -h: Host address
      - -t: Topic
      - -m: Message
+5. Open port for MQTT
+   - Mosquitto use port number 1884
+   - Edit 'Inbound rule'
