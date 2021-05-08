@@ -6,7 +6,7 @@ AWS.config.update({ region: 'ap-northeast-2' });
 const s3 = new AWS.S3({ apiVersion: '2006-03-01' });
 
 try {
-  const file = 'test.jpeg';
+  const file = 'lambdaSend.zip';
   const fileStream = fs.createReadStream(path.join('./dummy', file));
   const uploadParams = {
     Bucket: 'dohyeonbucket',
