@@ -18,12 +18,20 @@ sprinkler.on('connect', () => {
     console.log('Subscribe Sprinkler');
   });
 
+  sprinkler.subscribe('fire/alert', () => {
+    console.log('Subscribe Alert');
+  });
+
   sprinkler.on('message', (topic, message) => {
-    const { activate } = JSON.parse(message.toString());
-    if (activate) {
-      console.log('Sprinkler Run');
+    if (topic == 'fire/alert') {
+      console.log('ALERT!!!');
     } else {
-      console.log('Sprinkler Stop');
+      const { activate } = JSON.parse(message.toString());
+      if (activate) {
+        console.log('Sprinkler Run');
+      } else {
+        console.log('Sprinkler Stop');
+      }
     }
   });
 });

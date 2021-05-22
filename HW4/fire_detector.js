@@ -13,6 +13,14 @@ const detector = new AWS_IOT.device({
 detector.on('connect', () => {
   console.log('Fire Dector Connected');
 
+  detector.subscribe('fire/alert', () => {
+    console.log('Subscribe Alert');
+  });
+
+  detector.on('message', () => {
+    console.log('ALERT!!!');
+  });
+
   setInterval(() => {
     const isFire = Boolean(Math.ceil(Math.random() * 10) % 2 == 0);
     console.log('Is Fire:', isFire);
