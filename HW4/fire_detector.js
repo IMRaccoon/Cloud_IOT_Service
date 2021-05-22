@@ -16,9 +16,9 @@ detector.on('connect', () => {
   console.log('Fire Dector Connected');
 
   setInterval(() => {
-    const isFire = Boolean(Math.ceil(Math.random() * 10) % 2 == 0);
-    console.log('Fire:', isFire);
-    detector.publish('fire/alarm', JSON.stringify({ isFire }));
+    const location = Math.ceil(Math.random() * 10);
+    console.log('Fire Detected Location:', location);
+    detector.publish('fire/alarm', JSON.stringify({ location }));
     // 3초로 바꿀것
   }, 3000);
 });

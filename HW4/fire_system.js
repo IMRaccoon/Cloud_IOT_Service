@@ -21,13 +21,13 @@ fireSystem.on('connect', () => {
   });
 
   fireSystem.on('message', (topic, message) => {
-    const { isFire } = JSON.parse(message.toString());
-    console.log('isFire:', isFire);
-    if (isFire) {
-      fireSystem.publish('fire/sprinkler', 'activate');
-      fireSystem.publish('fire/alert', 'FIRE!!');
+    const { location } = JSON.parse(message.toString());
+    console.log('Fire Location:', location);
+    if (location % 2 == 0) {
+      fireSystem.publish('fire/sprinkler', JSON.stringify({ activate: true }));
+      fireSystem.publish('fire/alert', JSON.stringify({ alert: 'FIRE!!' }));
     } else {
-      fireSystem.publish('fire/sprinkler', 'deactivate');
+      fireSystem.publish('fire/sprinkler', JSON.stringify({ activate: false }));
     }
   });
 });

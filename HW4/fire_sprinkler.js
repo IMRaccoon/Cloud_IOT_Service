@@ -19,7 +19,6 @@ sprinkler.on('connect', () => {
   });
 
   sprinkler.on('message', (topic, message) => {
-    const command = message.toString();
-    console.log(command);
+    console.log(topic, message);
   });
 });
