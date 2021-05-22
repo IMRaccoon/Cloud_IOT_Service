@@ -19,6 +19,11 @@ sprinkler.on('connect', () => {
   });
 
   sprinkler.on('message', (topic, message) => {
-    console.log(topic, message);
+    const { activate } = JSON.parse(message.toString());
+    if (activate) {
+      console.log('Sprinkler Run');
+    } else {
+      console.log('Sprinkler Stop');
+    }
   });
 });

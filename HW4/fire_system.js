@@ -1,5 +1,3 @@
-// SubScribe Fire Alarm & Publish to Fire Sprinkler & Fire Alert
-
 const AWS_IOT = require('aws-iot-device-sdk');
 const path = require('path');
 
@@ -21,9 +19,9 @@ fireSystem.on('connect', () => {
   });
 
   fireSystem.on('message', (topic, message) => {
-    const { location } = JSON.parse(message.toString());
-    console.log('Fire Location:', location);
-    if (location % 2 == 0) {
+    const { isFire } = JSON.parse(message.toString());
+    console.log('Fire Activate:', isFire);
+    if (isFire) {
       fireSystem.publish('fire/sprinkler', JSON.stringify({ activate: true }));
       fireSystem.publish('fire/alert', JSON.stringify({ alert: 'FIRE!!' }));
     } else {

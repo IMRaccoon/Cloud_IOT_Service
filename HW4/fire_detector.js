@@ -1,5 +1,3 @@
-// Local Detector
-
 const AWS_IOT = require('aws-iot-device-sdk');
 const path = require('path');
 
@@ -16,9 +14,8 @@ detector.on('connect', () => {
   console.log('Fire Dector Connected');
 
   setInterval(() => {
-    const location = Math.ceil(Math.random() * 10);
-    console.log('Fire Detected Location:', location);
-    detector.publish('fire/alarm', JSON.stringify({ location }));
-    // 3초로 바꿀것
+    const isFire = Boolean(Math.ceil(Math.random() * 10) % 2 == 0);
+    console.log('Is Fire:', isFire);
+    detector.publish('fire/alarm', JSON.stringify({ isFire }));
   }, 3000);
 });
