@@ -36,7 +36,7 @@ camera.on('connect', async () => {
       if (err) {
         console.log('Face Recognition Request Error');
       } else {
-        console.log('Face Recognition Request Success');
+        console.log('Face Recognition Request Success', Key);
       }
       camera.end();
     },
